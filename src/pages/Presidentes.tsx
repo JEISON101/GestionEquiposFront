@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { FormularioPresidente } from "../components/FormPresidente";
 
-interface Presidente{
+export interface Presidente{
     dni:number;
     nombre:string;
     id_equipo?:number
@@ -8,6 +9,8 @@ interface Presidente{
 
 export const Presidentes: React.FC = () => {
     const [presidentes, setPresidentes] = useState<Presidente[]>([])
+    const [formPres, setFormPres] = useState<boolean>(false)
+
     const getPresidentes = async() => {
         await fetch('http://localhost:3333/presidentes')
         .then(response => response.json())
@@ -25,7 +28,7 @@ export const Presidentes: React.FC = () => {
             <div className="max-w-4xl mx-auto px-4 py-8">
                 <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-bold text-gray-800">Listado de Presidentes</h2>
-                    <button className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition cursor-pointer">
+                    <button className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition cursor-pointer" onClick={()=> setFormPres(true)}>
                         Añadir Presidente
                     </button>
                 </div>
@@ -66,7 +69,7 @@ export const Presidentes: React.FC = () => {
                     </table>
                 </div>
             </div>
-            { }
+            { formPres && <FormularioPresidente/> }
         </div>
     )
 }
