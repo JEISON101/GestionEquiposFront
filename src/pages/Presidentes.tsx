@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Presidente{
     dni:number;
@@ -8,6 +8,17 @@ interface Presidente{
 
 export const Presidentes: React.FC = () => {
     const [presidentes, setPresidentes] = useState<Presidente[]>([])
+    const getPresidentes = async() => {
+        await fetch('http://localhost:3333/presidentes')
+        .then(response => response.json())
+        .then(data => {
+            setPresidentes(data.datos)
+        })
+    }
+
+    useEffect(()=>{
+        getPresidentes()
+    },[presidentes])
 
     return (
         <div>
