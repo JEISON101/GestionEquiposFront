@@ -1,18 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export interface EquipoProp {
-  id_equipo: number;
-  nombre: string;
-  anio_fundacion: number;
-}
-
-export const FormularioEquipo: React.FC<any> = ({equipo,setFormequip}) => {
+export const FormularioEquipo: React.FC<any> = ({ equipo, setFormequip }) => {
   const [nombre, setNombre] = useState<string>("");
-  const [anio_f, setAnioF] = useState<number>();
-  const PutOrPost = () => {};
-  setNombre(equipo.nombre);
-  setAnioF(equipo.anio_fundacion);
-  console.log(nombre, anio_f);
+  const [anio_fundacion, setAnioF] = useState<number>();
+  useEffect(() => {
+  if (equipo !== undefined) {
+    setNombre(equipo.nombre);
+    setAnioF(equipo.anio_fundacion);
+  }
+}, [equipo]);
+  
+  const postOrPutEquipo = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  
+    
+    const metodo = equipo === undefined ? "POST" : "PUT";
+    const url =
+      equipo === undefined
+        ? "http://localhost:3333/equipo"
+        : `http://localhost:3333/equipo/${equipo.id_equipo}`;
+    await fetch(url, {
+      method: metodo,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nombre, anio_fundacion }),
+    });
+    
+    setNombre("");
+    setAnioF(0);
+    setFormequip(false);
+    console.log("Equipo guardado");
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
@@ -20,7 +38,7 @@ export const FormularioEquipo: React.FC<any> = ({equipo,setFormequip}) => {
         <h2 className="text-2xl font-bold mb-6 text-gray-800">
           {equipo ? `Editar Equipo` : "Agregar Equipo"}
         </h2>
-        <form onSubmit={() => PutOrPost}>
+        <form onSubmit={postOrPutEquipo}>
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Nombre
@@ -35,11 +53,11 @@ export const FormularioEquipo: React.FC<any> = ({equipo,setFormequip}) => {
           </div>
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Año Fundacionn
+              Año Fundacion
             </label>
             <input
               type="number"
-              value={anio_f}
+              value={anio_fundacion}
               onChange={(e) => setAnioF(parseInt(e.target.value))}
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -55,7 +73,10 @@ export const FormularioEquipo: React.FC<any> = ({equipo,setFormequip}) => {
 
             <button
               className="w-md bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 transition m-1"
-              onClick={() => {setFormequip(false)}}            >
+              onClick={() => {
+                setFormequip(false);
+              }}
+            >
               Cancelar
             </button>
           </div>
