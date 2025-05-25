@@ -3,25 +3,26 @@ import type { Equipo } from "../pages/Equipos";
 
 export const FormularioPresidente:React.FC = () => {
     const [equpDis, setEquiDis] = useState<Equipo[]>([])
-
     const [dni, setDni] = useState<number>();
     const [nombre, setNombre] = useState<string>("");
     const [id_equipo, setIdEquipo] = useState<number>()
+    const PutOrPost=()=>{
 
+    }
     return(
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
             <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md mt-10">
                 <h2 className="text-2xl font-bold mb-6 text-gray-800">
                     {"Agregar Libro Editar Libro"}
                 </h2>
-                <form onSubmit={}>
+                <form onSubmit={()=>(PutOrPost)}>
 
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                             DNI
                         </label>
                         <input
-                            type="text"
+                            type="number"
                             name="titulo"
                             value={dni}
                             onChange={(e) => (e.target.value)}
@@ -38,7 +39,7 @@ export const FormularioPresidente:React.FC = () => {
                             type="text"
                             name="autor"
                             value={nombre}
-                            onChange={(e) => (e.target.value)}
+                            onChange={(e) => setNombre(e.target.value)}
                             required
                             className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
@@ -51,14 +52,14 @@ export const FormularioPresidente:React.FC = () => {
                         <select
                             name="editorial_id"
                             value={id_equipo}
-                            onChange={(e) => setEditorial_id(parseInt(e.target.value))}
+                            onChange={(e) => setIdEquipo(parseInt(e.target.value))}
                             required
                             className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             <option value="">Seleccione una editorial</option>
                             {equpDis.length > 0 ? (
                                 equpDis.map((equip, index) => (
-                                    <option key={index} value={equip.id_editorial}>
+                                    <option key={index} value={equip.id_equipo}>
                                         {equip.nombre}
                                     </option>
                                 ))) : (
