@@ -17,7 +17,6 @@ export const Equipos: React.FC = () => {
       .then((response) => response.json())
       .then((data) => {
         setEquipo(data.datos);
-        console.log(data);
       });
   };
   const eliminarEquipo = async (id: number) => {
@@ -30,7 +29,7 @@ export const Equipos: React.FC = () => {
 
   useEffect(() => {
     getEquipos();
-  }, []);
+  }, [equipos]);
 
   return (
     <div>

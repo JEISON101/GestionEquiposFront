@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import type { Equipo } from "../pages/Equipos";
-import type { Presidente } from "../pages/Presidentes";
 
 
 export const FormularioPresidente: React.FC <any> = ({ presidente,setFormPres}) => {
@@ -22,7 +21,6 @@ export const FormularioPresidente: React.FC <any> = ({ presidente,setFormPres}) 
     .then((response) => response.json())
       .then((data) => {
         setEquiDis(data.datos);
-        console.log(data);
       });
   };
   
