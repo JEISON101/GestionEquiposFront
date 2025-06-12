@@ -1,24 +1,35 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-const register : React.FC = () => {
-    const [nombre,serNombre] = useState("");
-    const [correo,setCorreo] = useState("");
-    const [direccion,setDireccion] = useState("");
-    const [telefono,setTelefono] = useState("");
-    const [contrasena,setContrasena] = useState("");
-    const navigate = useNavigate();
-    }
 
-    const registrar = async (e: React.FormEvent)=>{
+export const Register:React.FC = () => {
+    const navigate=useNavigate();
+
+    const [nombre,setNombre] = useState<string>('');
+    const [correo,setCorreo] = useState<string>('');
+    const [direccion,setDireccion] = useState<string>('');
+    const [telefono,setTelfono] = useState<number>();
+    const [contrasena,setContraena] = useState<string>('');
+
+    const registrar = async (e:React.FormEvent)=>{
         e.preventDefault();
         try{
-            const res = await fetch('')
+            const res = await fetch ('http://localhost:3333/register',{
+                method: 'POST',
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify({nombre, correo, direccion, telefono, contrasena})
+            })
+            const data =  await res.json();
+            console.log(data.mensaje)
+            if(data.mensaje='USUARIO REGISTRADO EXITOSAMENTE'){
+                localStorage.setItem("correo",correo);
+                localStorage.setItem("auth","true");
+                navigate('/dashboard');
+                
+            }
         }
-
     }
 
-            
   return (
         <div className="min-h-screen bg-gray-200 flex items-center justify-center px-4">
             <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
@@ -60,4 +71,4 @@ const register : React.FC = () => {
             </div>
         </div>
   )
-  export default register;
+  } 
