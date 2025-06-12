@@ -1,29 +1,32 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
 
     const navigate = useNavigate();
-    const [nombre, setNombre] = useState<string>();
-    const [correo, setCorreo] = useState<string>();
-    const [direccion, setDireccion] = useState<string>();
-    const [telefono, setTelefono] = useState<number>();
-    const [contrasena, setContrasena] = useState<string>();
+    const [correo, setCorreo] = useState<string>("");
+    const [contrasena, setContrasena] = useState<string>("");
 
-    const loguear = async() => {
+    const loguear = async(e: React.FormEvent) => {
+        e.preventDefault();
         try {    
             const res = await fetch('http://localhost:3333/login',{
                 method:'POST',
                 headers:{ 'Content-Type':'application/json' },
-                body:JSON.stringify({nombre, correo, direccion, telefono, contrasena})
+                body:JSON.stringify({correo, contrasena})
             })
             const data = await res.json();
-            if(data.auth){
-                console.log(data.mensaje);
-                navigate('/dashboard')
+            
+            if(data.valid){
+                localStorage.setItem("correo", correo)
+                localStorage.setItem("auth", 'true');
+                console.log(data.mensaje)
+                navigate('/equipos')
             }else{
                 alert(data.mensaje);
             }
         } catch (error) {
-            alert('Hubo problemas para realizar el inicio de sesión')
+            alert('Hubo problemas en el servidor')
         }
     }
 
@@ -40,7 +43,7 @@ export const Login = () => {
                         <input
                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-green-600"
                             type="email"
-                            onChange={(e) => (e.target.value)}
+                            onChange={(e) => setCorreo(e.target.value)}
                             placeholder="tucorreo@ejemplo.com"
                         />
                     </div>
@@ -52,7 +55,7 @@ export const Login = () => {
                         <input
                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-green-600"
                             type="password"
-                            onChange={(e) => (e.target.value)}
+                            onChange={(e) => setContrasena(e.target.value)}
                             placeholder="********"
                         />
                     </div>
