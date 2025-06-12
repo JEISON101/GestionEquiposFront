@@ -19,8 +19,8 @@ export const NavBar:React.FC = () => {
             navigate('/')
         }
     return(
-        <nav className="bg-gray-800 text-white px-4 py-3">
-            <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <nav className="bg-gray-800 text-white py-3">
+            <div className="px-2 flex justify-between items-center">
                 <div className="flex items-center">
                     <a className="hover:bg-gray-600 px-3 py-2 rounded transition cursor-pointer text-lg" onClick={()=>{cerrarSesion}}>📤 Salir</a>
                     <div className="grid">
