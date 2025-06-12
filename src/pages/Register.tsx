@@ -21,6 +21,7 @@ export const Register: React.FC = () => {
       const data = await res.json();
       console.log(data);
       if (data.mensaje === 'USUARIO REGISTRADO EXITOSAMENTE') {
+        localStorage.setItem("nombre", nombre);
         localStorage.setItem("correo", correo);
         localStorage.setItem("auth", "true");
         navigate('/dashboard');
