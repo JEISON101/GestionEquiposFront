@@ -1,7 +1,26 @@
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
-export const Register = () => {
+const register : React.FC = () => {
+    const [nombre,serNombre] = useState("");
+    const [correo,setCorreo] = useState("");
+    const [direccion,setDireccion] = useState("");
+    const [telefono,setTelefono] = useState("");
+    const [contrasena,setContrasena] = useState("");
+    const navigate = useNavigate();
+    }
+
+    const registrar = async (e: React.FormEvent)=>{
+        e.preventDefault();
+        try{
+            const res = await fetch('')
+        }
+
+    }
+
+            
   return (
-            <div className="min-h-screen bg-gray-200 flex items-center justify-center px-4">
+        <div className="min-h-screen bg-gray-200 flex items-center justify-center px-4">
             <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
                 <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Registrate</h2>
 
@@ -40,6 +59,5 @@ export const Register = () => {
                 <a href="/" className="text-blue-600">Iniciar sesión</a>
             </div>
         </div>
-
   )
-}
+  export default register;
