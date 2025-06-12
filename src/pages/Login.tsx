@@ -18,6 +18,8 @@ export const Login = () => {
             const data = await res.json();
             
             if(data.valid){
+                console.log(data)
+                localStorage.setItem("nombre", data.nombre)
                 localStorage.setItem("correo", correo)
                 localStorage.setItem("auth", 'true');
                 console.log(data.mensaje)

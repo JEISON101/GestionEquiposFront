@@ -22,7 +22,7 @@ export const NavBar:React.FC = () => {
         <nav className="bg-gray-800 text-white py-3">
             <div className="px-2 flex justify-between items-center">
                 <div className="flex items-center">
-                    <a className="hover:bg-gray-600 px-3 py-2 rounded transition cursor-pointer text-lg" onClick={()=>{cerrarSesion}}>📤 Salir</a>
+                    <a className="hover:bg-gray-600 px-3 py-2 rounded transition cursor-pointer text-lg" onClick={cerrarSesion}>📤 Salir</a>
                     <div className="grid">
                         <p className="text-2xl px-3 py-2" onClick={()=>{navigate('/')}}><b>{nombreStorage}</b></p>
                         <a className="px-3 py-2 rounded text-lg" onClick={()=>{cerrarSesion}}>{coreoStorage}</a>
