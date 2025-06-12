@@ -1,5 +1,32 @@
 
 export const Login = () => {
+
+    const navigate = useNavigate();
+    const [nombre, setNombre] = useState<string>();
+    const [correo, setCorreo] = useState<string>();
+    const [direccion, setDireccion] = useState<string>();
+    const [telefono, setTelefono] = useState<number>();
+    const [contrasena, setContrasena] = useState<string>();
+
+    const loguear = async() => {
+        try {    
+            const res = await fetch('http://localhost:3333/login',{
+                method:'POST',
+                headers:{ 'Content-Type':'application/json' },
+                body:JSON.stringify({nombre, correo, direccion, telefono, contrasena})
+            })
+            const data = await res.json();
+            if(data.auth){
+                console.log(data.mensaje);
+                navigate('/dashboard')
+            }else{
+                alert(data.mensaje);
+            }
+        } catch (error) {
+            alert('Hubo problemas para realizar el inicio de sesión')
+        }
+    }
+
   return (
             <div className="min-h-screen bg-gray-200 flex items-center justify-center px-4">
             <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
