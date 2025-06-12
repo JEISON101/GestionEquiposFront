@@ -24,7 +24,7 @@ const register : React.FC = () => {
             <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
                 <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Registrate</h2>
 
-                <form onSubmit={}>
+                <form onSubmit={registrar}>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-semibold mb-2">
                             Correo electrónico
