@@ -25,8 +25,11 @@ export const Register:React.FC = () => {
                 localStorage.setItem("correo",correo);
                 localStorage.setItem("auth","true");
                 navigate('/dashboard');
-                
+            }else{
+                alert('Error al registrarse');
             }
+        }catch(error){
+            alert('Esta mal, en algo... ')
         }
     }
 
