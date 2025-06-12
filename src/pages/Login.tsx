@@ -21,7 +21,7 @@ export const Login = () => {
                 localStorage.setItem("correo", correo)
                 localStorage.setItem("auth", 'true');
                 console.log(data.mensaje)
-                navigate('/equipos')
+                navigate('/dashboard')
             }else{
                 alert(data.mensaje);
             }
